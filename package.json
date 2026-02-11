@@ -1,0 +1,76 @@
+{
+  "name": "@plasius/gpu-physics",
+  "version": "0.1.0",
+  "description": "Physics integration bridge package for Plasius GPU renderer migration.",
+  "type": "module",
+  "sideEffects": false,
+  "private": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./src/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "legal"
+  ],
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsup",
+    "demo": "python3 -m http.server --directory ..",
+    "test": "npm run test:unit",
+    "test:unit": "node --test",
+    "test:coverage": "c8 --reporter=lcov --reporter=text node --test"
+  },
+  "keywords": [
+    "physics",
+    "rapier",
+    "webgpu",
+    "gpu",
+    "plasius"
+  ],
+  "author": "Plasius LTD <development@plasius.co.uk>",
+  "license": "Apache-2.0",
+  "peerDependencies": {
+    "react": "^19.1.0"
+  },
+  "dependencies": {
+    "@react-three/rapier": "^2.1.0"
+  },
+  "devDependencies": {
+    "c8": "^10.1.3",
+    "react": "^19.1.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Plasius-LTD/gpu-physics.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Plasius-LTD/gpu-physics/issues"
+  },
+  "homepage": "https://github.com/Plasius-LTD/gpu-physics#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "funding": [
+    {
+      "type": "patreon",
+      "url": "https://www.patreon.com/c/plasiusltd/membership"
+    },
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/Plasius-LTD"
+    }
+  ]
+}
