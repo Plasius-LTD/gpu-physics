@@ -1,13 +1,27 @@
 import React from "react";
-import {
-  Physics as RapierPhysics,
-  RigidBody as RapierRigidBody,
-} from "@react-three/rapier";
 
 export const DEFAULT_GRAVITY = Object.freeze([0, -9.81, 0]);
 
+const PhysicsContext = React.createContext({
+  gravity: DEFAULT_GRAVITY,
+  options: {},
+});
+
+const RigidBodyContext = React.createContext({
+  type: "fixed",
+  colliders: "trimesh",
+  options: {},
+});
+
 export function PhysicsRoot({ gravity = DEFAULT_GRAVITY, children, ...props }) {
-  return React.createElement(RapierPhysics, { gravity, ...props }, children);
+  const value = React.useMemo(
+    () => ({
+      gravity,
+      options: props,
+    }),
+    [gravity, props]
+  );
+  return React.createElement(PhysicsContext.Provider, { value }, children);
 }
 
 export function StaticRigidBody({
@@ -15,27 +29,27 @@ export function StaticRigidBody({
   children,
   ...props
 }) {
-  return React.createElement(
-    RapierRigidBody,
-    {
+  const value = React.useMemo(
+    () => ({
       type: "fixed",
       colliders,
-      ...props,
-    },
-    children
+      options: props,
+    }),
+    [colliders, props]
   );
+  return React.createElement(RigidBodyContext.Provider, { value }, children);
 }
 
 export function DynamicRigidBody({ colliders = "hull", children, ...props }) {
-  return React.createElement(
-    RapierRigidBody,
-    {
+  const value = React.useMemo(
+    () => ({
       type: "dynamic",
       colliders,
-      ...props,
-    },
-    children
+      options: props,
+    }),
+    [colliders, props]
   );
+  return React.createElement(RigidBodyContext.Provider, { value }, children);
 }
 
 export function KinematicRigidBody({
@@ -43,13 +57,13 @@ export function KinematicRigidBody({
   children,
   ...props
 }) {
-  return React.createElement(
-    RapierRigidBody,
-    {
+  const value = React.useMemo(
+    () => ({
       type: "kinematicPosition",
       colliders,
-      ...props,
-    },
-    children
+      options: props,
+    }),
+    [colliders, props]
   );
+  return React.createElement(RigidBodyContext.Provider, { value }, children);
 }

@@ -12,7 +12,8 @@
   - (placeholder)
 
 - **Changed**
-  - (placeholder)
+  - Removed direct `@react-three/rapier` bridge dependency and switched to framework-neutral physics boundary components.
+  - Removed legacy Three.js stack dev dependencies from the package.
 
 - **Fixed**
   - (placeholder)
