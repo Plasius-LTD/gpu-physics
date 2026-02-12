@@ -5,3 +5,31 @@
 - Initial public release of `@plasius/gpu-physics`.
 - Added `PhysicsRoot`, `StaticRigidBody`, `DynamicRigidBody`, and `KinematicRigidBody` bridge components.
 - Added baseline tests and migration documentation.
+
+## [Unreleased]
+
+- **Added**
+  - (placeholder)
+
+- **Changed**
+  - (placeholder)
+
+- **Fixed**
+  - (placeholder)
+
+- **Security**
+  - (placeholder)
+
+## [0.1.0] - 2026-02-11
+
+- **Added**
+  - Initial release.
+
+- **Changed**
+  - (placeholder)
+
+- **Fixed**
+  - (placeholder)
+
+- **Security**
+  - (placeholder)
