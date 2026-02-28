@@ -12,6 +12,20 @@
   - (placeholder)
 
 - **Changed**
+  - (placeholder)
+
+- **Fixed**
+  - (placeholder)
+
+- **Security**
+  - (placeholder)
+
+## [0.1.1] - 2026-02-28
+
+- **Added**
+  - (placeholder)
+
+- **Changed**
   - Removed direct `@react-three/rapier` bridge dependency and switched to framework-neutral physics boundary components.
   - Removed legacy Three.js stack dev dependencies from the package.
 
@@ -34,3 +48,4 @@
 
 - **Security**
   - (placeholder)
+[0.1.1]: https://github.com/Plasius-LTD/gpu-physics/releases/tag/v0.1.1
