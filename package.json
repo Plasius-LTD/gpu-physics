@@ -1,6 +1,6 @@
 {
   "name": "@plasius/gpu-physics",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Physics integration bridge package for Plasius GPU renderer migration.",
   "type": "module",
   "sideEffects": false,
