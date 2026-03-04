@@ -40,6 +40,16 @@ import { PhysicsRoot, StaticRigidBody } from "@plasius/gpu-physics";
 - `DynamicRigidBody`
 - `KinematicRigidBody`
 
+## Development Checks
+
+```sh
+npm run lint
+npm run typecheck
+npm run test:coverage
+npm run build
+npm run pack:check
+```
+
 ## License
 
 Apache-2.0
