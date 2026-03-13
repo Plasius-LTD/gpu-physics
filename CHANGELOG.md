@@ -9,6 +9,20 @@
 ## [Unreleased]
 
 - **Added**
+  - (placeholder)
+
+- **Changed**
+  - (placeholder)
+
+- **Fixed**
+  - (placeholder)
+
+- **Security**
+  - (placeholder)
+
+## [0.1.7] - 2026-03-13
+
+- **Added**
   - Added worker-governance manifest exports for `gameplay` and `cinematic`
     physics profiles.
   - Added authoritative vs degradable job metadata compatible with
@@ -88,3 +102,4 @@
 [0.1.1]: https://github.com/Plasius-LTD/gpu-physics/releases/tag/v0.1.1
 [0.1.2]: https://github.com/Plasius-LTD/gpu-physics/releases/tag/v0.1.2
 [0.1.6]: https://github.com/Plasius-LTD/gpu-physics/releases/tag/v0.1.6
+[0.1.7]: https://github.com/Plasius-LTD/gpu-physics/releases/tag/v0.1.7
