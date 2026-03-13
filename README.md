@@ -32,6 +32,35 @@ import { PhysicsRoot, StaticRigidBody } from "@plasius/gpu-physics";
 </PhysicsRoot>
 ```
 
+## Worker Governance
+
+`@plasius/gpu-physics` now publishes worker-governance manifests so physics
+consumers can feed authoritative and degradable jobs into
+`@plasius/gpu-performance` without recreating package-local policy.
+
+```ts
+import { createWorkerJobBudgetAdaptersFromManifest } from "@plasius/gpu-performance";
+import { createGpuDebugSession } from "@plasius/gpu-debug";
+import { getPhysicsWorkerManifest } from "@plasius/gpu-physics";
+
+const manifest = getPhysicsWorkerManifest("cinematic");
+const debug = createGpuDebugSession({ enabled: true });
+
+const workerBudgetAdapters = createWorkerJobBudgetAdaptersFromManifest(manifest);
+const solverJob = manifest.jobs.find((job) => job.key === "solver");
+
+debug.recordQueue({
+  owner: manifest.owner,
+  queueClass: solverJob.worker.queueClass,
+  depth: 4,
+  frameId: "frame-128",
+});
+```
+
+The default `gameplay` profile keeps broadphase, narrowphase, and solver work
+authoritative across all budget levels. Visual sync, contact presentation, cloth
+assist, and fracture preview jobs remain degradable.
+
 ## Exports
 
 - `DEFAULT_GRAVITY`
@@ -39,6 +68,19 @@ import { PhysicsRoot, StaticRigidBody } from "@plasius/gpu-physics";
 - `StaticRigidBody`
 - `DynamicRigidBody`
 - `KinematicRigidBody`
+- `physicsDebugOwner`
+- `physicsWorkerQueueClasses`
+- `defaultPhysicsWorkerProfile`
+- `physicsWorkerManifests`
+- `physicsWorkerProfileNames`
+- `getPhysicsWorkerManifest(profile?)`
+
+## Worker Profiles
+
+- `gameplay`: preserves authoritative rigid-body stability and scales visual
+  transform sync plus contact presentation.
+- `cinematic`: keeps authoritative rigid-body work stable while adding
+  degradable cloth-assist and fracture-preview jobs.
 
 ## Development Checks
 
@@ -49,6 +91,12 @@ npm run test:coverage
 npm run build
 npm run pack:check
 ```
+
+## Architecture Docs
+
+- `docs/adrs/adr-0004-authoritative-worker-budget-manifests.md`
+- `docs/tdrs/tdr-0001-authoritative-worker-budget-levels.md`
+- `docs/design/physics-worker-governance.md`
 
 ## License
 

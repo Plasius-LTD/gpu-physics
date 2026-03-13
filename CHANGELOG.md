@@ -9,10 +9,15 @@
 ## [Unreleased]
 
 - **Added**
-  - (placeholder)
+  - Added worker-governance manifest exports for `gameplay` and `cinematic`
+    physics profiles.
+  - Added authoritative vs degradable job metadata compatible with
+    `@plasius/gpu-performance` and `@plasius/gpu-debug`.
+  - Added ADR, TDR, and design docs for physics worker-budget integration.
 
 - **Changed**
-  - (placeholder)
+  - Clarified package guidance for worker-first physics scheduling and optional
+    debug instrumentation.
 
 - **Fixed**
   - (placeholder)
