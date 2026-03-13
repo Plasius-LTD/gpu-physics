@@ -41,6 +41,12 @@ Each manifest job publishes three views of the same work unit:
 This keeps the contract aligned with `@plasius/gpu-performance` and
 `@plasius/gpu-debug` without coupling `gpu-physics` to either runtime.
 
+Physics manifests also publish:
+
+- `schedulerMode: "dag"`
+- `priority`
+- `dependencies`
+
 ## Budget Policy
 
 Authoritative physics jobs keep:
@@ -54,6 +60,14 @@ That means frame-pressure adaptation can rebalance headroom, queue depth, and
 dispatch packaging, but it does not reduce authoritative simulation fidelity.
 
 Visual and assistive jobs may lower cadence and workgroup scale under pressure.
+
+## DAG Policy
+
+- `broadphase` is the authoritative root.
+- `narrowphase` depends on `broadphase`.
+- `solver` depends on `narrowphase`.
+- transform sync, contact visuals, cloth assist, and fracture preview depend on
+  `solver`.
 
 ## Debug Policy
 

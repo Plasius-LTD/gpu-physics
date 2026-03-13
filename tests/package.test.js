@@ -100,6 +100,7 @@ test("physics worker manifests preserve authoritative jobs for gameplay profile"
 
   assert.equal(manifest.profile, "gameplay");
   assert.equal(manifest.owner, "physics");
+  assert.equal(manifest.schedulerMode, "dag");
   assert.deepEqual(jobKeys, [
     "broadphase",
     "narrowphase",
@@ -121,6 +122,16 @@ test("physics worker manifests preserve authoritative jobs for gameplay profile"
     assert.equal(job.worker.queueClass, physicsWorkerQueueClasses.simulation);
     assert.equal(job.debug.owner, physicsDebugOwner);
     assert.equal(job.performance.domain, "physics");
+    if (job.key === "broadphase") {
+      assert.deepEqual(job.worker.dependencies, []);
+    }
+    if (job.key === "narrowphase") {
+      assert.deepEqual(job.worker.dependencies, ["physics.gameplay.broadphase"]);
+    }
+    if (job.key === "solver") {
+      assert.deepEqual(job.worker.dependencies, ["physics.gameplay.narrowphase"]);
+      assert.equal(job.worker.priority, 4);
+    }
     for (const level of job.performance.levels) {
       assert.equal(level.config.cadenceDivisor, 1);
       assert.equal(level.config.workgroupScale, 1);
@@ -144,6 +155,8 @@ test("cinematic physics worker profile adds degradable cloth and fracture jobs",
   assert.equal(fractureJob.performance.domain, "geometry");
   assert.equal(transformsJob.performance.authority, "visual");
   assert.equal(transformsJob.worker.queueClass, physicsWorkerQueueClasses.render);
+  assert.deepEqual(clothJob.worker.dependencies, ["physics.cinematic.solver"]);
+  assert.deepEqual(fractureJob.worker.dependencies, ["physics.cinematic.solver"]);
   assert.equal(
     transformsJob.performance.levels[0].config.cadenceDivisor,
     2

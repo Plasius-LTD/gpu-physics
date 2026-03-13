@@ -14,10 +14,14 @@
   - Added authoritative vs degradable job metadata compatible with
     `@plasius/gpu-performance` and `@plasius/gpu-debug`.
   - Added ADR, TDR, and design docs for physics worker-budget integration.
+  - Added DAG scheduler metadata for authoritative physics stage ordering and
+    post-solver visual or assistive follow-up jobs.
 
 - **Changed**
   - Clarified package guidance for worker-first physics scheduling and optional
     debug instrumentation.
+  - Documented the authoritative dependency chain that physics manifests publish
+    into the shared worker-governance model.
 
 - **Fixed**
   - (placeholder)

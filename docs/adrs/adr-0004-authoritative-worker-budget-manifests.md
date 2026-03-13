@@ -18,6 +18,8 @@ Publish worker-governance manifests directly from `@plasius/gpu-physics`.
   jobs.
 - Keep authoritative jobs present across all budget levels with fixed cadence
   and full workgroup scale.
+- Publish `schedulerMode: "dag"` with explicit stage dependencies so
+  authoritative rigid-body phases remain ordered.
 - Mark cloth-assist, fracture-preview, transform sync, and contact visuals as
   degradable work for budget control.
 - Keep debug integration metadata opt-in and route analytics/export concerns to
@@ -29,6 +31,8 @@ Publish worker-governance manifests directly from `@plasius/gpu-physics`.
   `@plasius/gpu-performance` with no package-local manifest translation.
 - Positive: gameplay-authoritative physics is clearly protected from the first
   wave of adaptive budget changes.
+- Positive: downstream packages can preserve broadphase/narrowphase/solver
+  ordering without reconstructing the physics graph.
 - Positive: future cloth, fluid, or destruction work can extend the same
   manifest contract.
 - Negative: the package now owns another public contract surface that must stay

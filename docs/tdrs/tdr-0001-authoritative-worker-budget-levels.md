@@ -29,6 +29,8 @@ depth so the governor has real levers during sustained pressure.
 - `gameplay` is the default profile.
 - `cinematic` extends the same baseline with cloth-assist and fracture-preview
   jobs.
+- All manifests publish `schedulerMode: "dag"` plus priority/dependency data so
+  the authoritative stage chain stays explicit.
 - Queue classes stay within the shared worker/debug vocabulary:
   `simulation` and `render`.
 - All manifests emit `debug` metadata so `@plasius/gpu-debug` can correlate

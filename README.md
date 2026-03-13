@@ -61,6 +61,15 @@ The default `gameplay` profile keeps broadphase, narrowphase, and solver work
 authoritative across all budget levels. Visual sync, contact presentation, cloth
 assist, and fracture preview jobs remain degradable.
 
+Physics worker manifests also publish `schedulerMode: "dag"` plus stage
+priorities and dependencies:
+
+- `broadphase -> narrowphase -> solver`
+- visual and assistive jobs unlock after `solver`
+
+This preserves authoritative ordering while still letting downstream packages
+scale visual follow-up work under pressure.
+
 ## Exports
 
 - `DEFAULT_GRAVITY`

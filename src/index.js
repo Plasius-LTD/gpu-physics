@@ -602,8 +602,31 @@ const physicsWorkerProfileSpecs = {
   },
 };
 
+const physicsWorkerDagSpecs = {
+  gameplay: {
+    broadphase: { priority: 4, dependencies: [] },
+    narrowphase: { priority: 4, dependencies: ["broadphase"] },
+    solver: { priority: 4, dependencies: ["narrowphase"] },
+    transforms: { priority: 2, dependencies: ["solver"] },
+    contactVisuals: { priority: 1, dependencies: ["solver"] },
+  },
+  cinematic: {
+    broadphase: { priority: 4, dependencies: [] },
+    narrowphase: { priority: 4, dependencies: ["broadphase"] },
+    solver: { priority: 4, dependencies: ["narrowphase"] },
+    transforms: { priority: 2, dependencies: ["solver"] },
+    clothAssist: { priority: 2, dependencies: ["solver"] },
+    fracturePreview: { priority: 1, dependencies: ["solver"] },
+    contactVisuals: { priority: 1, dependencies: ["solver"] },
+  },
+};
+
 function buildPhysicsWorkerManifestJob(profileName, key, spec) {
   const label = `physics.${profileName}.${key}`;
+  const dag = physicsWorkerDagSpecs[profileName][key];
+  const dependencies = dag.dependencies.map(
+    (dependency) => `physics.${profileName}.${dependency}`
+  );
 
   return Object.freeze({
     key,
@@ -611,6 +634,9 @@ function buildPhysicsWorkerManifestJob(profileName, key, spec) {
     worker: Object.freeze({
       jobType: label,
       queueClass: spec.queueClass,
+      priority: dag.priority,
+      dependencies: Object.freeze(dependencies),
+      schedulerMode: "dag",
     }),
     performance: Object.freeze({
       id: label,
@@ -642,6 +668,7 @@ function buildPhysicsWorkerManifest(profileName, spec) {
     schemaVersion: 1,
     owner: physicsDebugOwner,
     profile: profileName,
+    schedulerMode: "dag",
     description: spec.description,
     suggestedAllocationIds: Object.freeze([...spec.suggestedAllocationIds]),
     jobs: Object.freeze(
