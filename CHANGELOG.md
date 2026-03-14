@@ -36,6 +36,8 @@
     debug instrumentation.
   - Documented the authoritative dependency chain that physics manifests publish
     into the shared worker-governance model.
+  - Updated GitHub Actions workflows to run JavaScript actions on Node 24 and
+    refreshed core workflow action versions.
 
 - **Fixed**
   - (placeholder)
