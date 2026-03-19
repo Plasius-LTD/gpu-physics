@@ -9,10 +9,15 @@
 ## [Unreleased]
 
 - **Added**
-  - (placeholder)
+  - Stable world snapshot exports with a normalized simulation-to-visual handoff
+    contract.
+  - Simulation plan helpers that describe authoritative commit, optional
+    secondary simulation, and snapshot routing before visual follow-up work.
+  - ADR, TDR, design docs, and tests for the stable world snapshot architecture.
 
 - **Changed**
-  - (placeholder)
+  - Physics worker manifests now route visual follow-up work through explicit
+    `authoritativeCommit`, `animationStateInputs`, and `worldSnapshot` stages.
 
 - **Fixed**
   - (placeholder)

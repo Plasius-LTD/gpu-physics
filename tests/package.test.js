@@ -2,6 +2,8 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import React from "react";
 import {
+  createPhysicsSimulationPlan,
+  createPhysicsWorldSnapshot,
   DEFAULT_GRAVITY,
   DynamicRigidBody,
   getPhysicsWorkerManifest,
@@ -10,6 +12,7 @@ import {
   StaticRigidBody,
   defaultPhysicsWorkerProfile,
   physicsDebugOwner,
+  physicsSimulationStageOrder,
   physicsWorkerManifests,
   physicsWorkerProfileNames,
   physicsWorkerQueueClasses,
@@ -33,6 +36,17 @@ test("exports physics bridge entrypoints", () => {
   assert.equal(typeof KinematicRigidBody, "function");
   assert.equal(defaultPhysicsWorkerProfile, "gameplay");
   assert.equal(physicsDebugOwner, "physics");
+  assert.deepEqual(physicsSimulationStageOrder, [
+    "intentResolution",
+    "broadphase",
+    "narrowphase",
+    "solver",
+    "authoritativeCommit",
+    "secondarySimulation",
+    "animationStateInputs",
+    "worldSnapshot",
+    "visualFollowUp",
+  ]);
   assert.deepEqual(physicsWorkerQueueClasses, {
     simulation: "simulation",
     render: "render",
@@ -105,6 +119,9 @@ test("physics worker manifests preserve authoritative jobs for gameplay profile"
     "broadphase",
     "narrowphase",
     "solver",
+    "authoritativeCommit",
+    "animationStateInputs",
+    "worldSnapshot",
     "transforms",
     "contactVisuals",
   ]);
@@ -115,13 +132,17 @@ test("physics worker manifests preserve authoritative jobs for gameplay profile"
 
   assert.deepEqual(
     authoritativeJobs.map((job) => job.key),
-    ["broadphase", "narrowphase", "solver"]
+    ["broadphase", "narrowphase", "solver", "authoritativeCommit", "worldSnapshot"]
   );
 
   for (const job of authoritativeJobs) {
-    assert.equal(job.worker.queueClass, physicsWorkerQueueClasses.simulation);
     assert.equal(job.debug.owner, physicsDebugOwner);
     assert.equal(job.performance.domain, "physics");
+    if (job.key === "worldSnapshot") {
+      assert.equal(job.worker.queueClass, physicsWorkerQueueClasses.render);
+    } else {
+      assert.equal(job.worker.queueClass, physicsWorkerQueueClasses.simulation);
+    }
     if (job.key === "broadphase") {
       assert.deepEqual(job.worker.dependencies, []);
     }
@@ -132,11 +153,25 @@ test("physics worker manifests preserve authoritative jobs for gameplay profile"
       assert.deepEqual(job.worker.dependencies, ["physics.gameplay.narrowphase"]);
       assert.equal(job.worker.priority, 4);
     }
+    if (job.key === "authoritativeCommit") {
+      assert.deepEqual(job.worker.dependencies, ["physics.gameplay.solver"]);
+    }
+    if (job.key === "worldSnapshot") {
+      assert.deepEqual(job.worker.dependencies, [
+        "physics.gameplay.animationStateInputs",
+      ]);
+      assert.equal(job.worker.queueClass, physicsWorkerQueueClasses.render);
+    }
     for (const level of job.performance.levels) {
-      assert.equal(level.config.cadenceDivisor, 1);
-      assert.equal(level.config.workgroupScale, 1);
+      if (job.performance.authority === "authoritative") {
+        assert.equal(level.config.cadenceDivisor, 1);
+        assert.equal(level.config.workgroupScale, 1);
+      }
     }
   }
+
+  const transformsJob = manifest.jobs.find((job) => job.key === "transforms");
+  assert.deepEqual(transformsJob.worker.dependencies, ["physics.gameplay.worldSnapshot"]);
 });
 
 test("cinematic physics worker profile adds degradable cloth and fracture jobs", () => {
@@ -144,10 +179,14 @@ test("cinematic physics worker profile adds degradable cloth and fracture jobs",
   const clothJob = manifest.jobs.find((job) => job.key === "clothAssist");
   const fractureJob = manifest.jobs.find((job) => job.key === "fracturePreview");
   const transformsJob = manifest.jobs.find((job) => job.key === "transforms");
+  const commitJob = manifest.jobs.find((job) => job.key === "authoritativeCommit");
+  const worldSnapshotJob = manifest.jobs.find((job) => job.key === "worldSnapshot");
 
   assert.ok(clothJob);
   assert.ok(fractureJob);
   assert.ok(transformsJob);
+  assert.ok(commitJob);
+  assert.ok(worldSnapshotJob);
 
   assert.equal(clothJob.performance.authority, "non-authoritative-simulation");
   assert.equal(clothJob.performance.domain, "cloth");
@@ -155,8 +194,17 @@ test("cinematic physics worker profile adds degradable cloth and fracture jobs",
   assert.equal(fractureJob.performance.domain, "geometry");
   assert.equal(transformsJob.performance.authority, "visual");
   assert.equal(transformsJob.worker.queueClass, physicsWorkerQueueClasses.render);
-  assert.deepEqual(clothJob.worker.dependencies, ["physics.cinematic.solver"]);
-  assert.deepEqual(fractureJob.worker.dependencies, ["physics.cinematic.solver"]);
+  assert.deepEqual(commitJob.worker.dependencies, ["physics.cinematic.solver"]);
+  assert.deepEqual(clothJob.worker.dependencies, ["physics.cinematic.authoritativeCommit"]);
+  assert.deepEqual(fractureJob.worker.dependencies, [
+    "physics.cinematic.authoritativeCommit",
+  ]);
+  assert.deepEqual(worldSnapshotJob.worker.dependencies, [
+    "physics.cinematic.animationStateInputs",
+    "physics.cinematic.clothAssist",
+    "physics.cinematic.fracturePreview",
+  ]);
+  assert.deepEqual(transformsJob.worker.dependencies, ["physics.cinematic.worldSnapshot"]);
   assert.equal(
     transformsJob.performance.levels[0].config.cadenceDivisor,
     2
@@ -199,5 +247,71 @@ test("getPhysicsWorkerManifest rejects unknown profiles", () => {
   assert.throws(
     () => getPhysicsWorkerManifest("invalid"),
     /Unknown physics worker profile "invalid"/
+  );
+});
+
+test("physics simulation plans describe the stable snapshot handoff", () => {
+  const gameplayPlan = createPhysicsSimulationPlan();
+  const cinematicPlan = createPhysicsSimulationPlan("cinematic");
+
+  assert.equal(gameplayPlan.snapshotStageId, "worldSnapshot");
+  assert.equal(gameplayPlan.snapshotStability, "post-authoritative-commit");
+  assert.deepEqual(gameplayPlan.secondarySimulationStageIds, []);
+  assert.deepEqual(gameplayPlan.stageOrder, [
+    "intentResolution",
+    "broadphase",
+    "narrowphase",
+    "solver",
+    "authoritativeCommit",
+    "animationStateInputs",
+    "worldSnapshot",
+    "transforms",
+    "contactVisuals",
+  ]);
+
+  const worldSnapshotStage = cinematicPlan.stages.find(
+    (stage) => stage.id === "worldSnapshot"
+  );
+  assert.deepEqual(cinematicPlan.secondarySimulationStageIds, [
+    "clothAssist",
+    "fracturePreview",
+  ]);
+  assert.deepEqual(worldSnapshotStage.dependencies, [
+    "animationStateInputs",
+    "clothAssist",
+    "fracturePreview",
+  ]);
+});
+
+test("physics world snapshots normalize stable handoff metadata", () => {
+  const snapshot = createPhysicsWorldSnapshot({
+    frameId: "frame-240",
+    tick: 240,
+    simulationTimeMs: 4000,
+    profile: "cinematic",
+    authoritativeTransformRevision: 240,
+    secondarySimulationRevision: 240,
+    animationInputRevision: 240,
+    bodyCount: 1824,
+    dynamicBodyCount: 412,
+    contactCount: 86,
+    metadata: {
+      world: "demo",
+    },
+  });
+
+  assert.equal(snapshot.stage, "worldSnapshot");
+  assert.equal(snapshot.stability, "post-authoritative-commit");
+  assert.equal(snapshot.includesSecondarySimulation, true);
+  assert.equal(snapshot.metadata.world, "demo");
+  assert.throws(
+    () =>
+      createPhysicsWorldSnapshot({
+        frameId: "",
+        tick: 0,
+        simulationTimeMs: 0,
+        authoritativeTransformRevision: 0,
+      }),
+    /snapshot.frameId must be a non-empty string/
   );
 });

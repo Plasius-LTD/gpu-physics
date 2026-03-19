@@ -4,3 +4,4 @@
 - [ADR-0002: Public Package Governance Baseline](./adr-0002-public-package-governance-baseline.md)
 - [ADR-0003: Remove React Three Rapier Coupling](./adr-0003-remove-react-three-rapier-coupling.md)
 - [ADR-0004: Authoritative Worker Budget Manifests](./adr-0004-authoritative-worker-budget-manifests.md)
+- [ADR-0005: Stable World Snapshot Contract](./adr-0005-stable-world-snapshot-contract.md)

@@ -70,6 +70,33 @@ priorities and dependencies:
 This preserves authoritative ordering while still letting downstream packages
 scale visual follow-up work under pressure.
 
+## Stable World Snapshots
+
+`@plasius/gpu-physics` now exports a stable simulation-to-visual handoff
+contract. Downstream packages should consume the normalized world snapshot
+instead of reading raw in-flight solve state.
+
+```js
+import {
+  createPhysicsSimulationPlan,
+  createPhysicsWorldSnapshot,
+} from "@plasius/gpu-physics";
+
+const plan = createPhysicsSimulationPlan("cinematic");
+const snapshot = createPhysicsWorldSnapshot({
+  frameId: "frame-240",
+  tick: 240,
+  simulationTimeMs: 4000,
+  authoritativeTransformRevision: 240,
+  secondarySimulationRevision: 240,
+  animationInputRevision: 240,
+  bodyCount: 1824,
+});
+
+console.log(plan.snapshotStageId);
+console.log(snapshot.stability);
+```
+
 ## Exports
 
 - `DEFAULT_GRAVITY`
@@ -83,6 +110,9 @@ scale visual follow-up work under pressure.
 - `physicsWorkerManifests`
 - `physicsWorkerProfileNames`
 - `getPhysicsWorkerManifest(profile?)`
+- `physicsSimulationStageOrder`
+- `createPhysicsSimulationPlan(profile?)`
+- `createPhysicsWorldSnapshot(input)`
 
 ## Worker Profiles
 
@@ -104,8 +134,11 @@ npm run pack:check
 ## Architecture Docs
 
 - `docs/adrs/adr-0004-authoritative-worker-budget-manifests.md`
+- `docs/adrs/adr-0005-stable-world-snapshot-contract.md`
 - `docs/tdrs/tdr-0001-authoritative-worker-budget-levels.md`
+- `docs/tdrs/tdr-0002-stable-world-snapshot-and-scene-prep-contract.md`
 - `docs/design/physics-worker-governance.md`
+- `docs/design/stable-world-snapshot-architecture.md`
 
 ## License
 
