@@ -9,6 +9,20 @@
 ## [Unreleased]
 
 - **Added**
+  - (placeholder)
+
+- **Changed**
+  - (placeholder)
+
+- **Fixed**
+  - (placeholder)
+
+- **Security**
+  - (placeholder)
+
+## [0.1.9] - 2026-03-21
+
+- **Added**
   - Stable world snapshot exports with a normalized simulation-to-visual handoff
     contract.
   - A browser-safe `@plasius/gpu-physics/browser` entrypoint for planning,
@@ -134,3 +148,4 @@
 [0.1.6]: https://github.com/Plasius-LTD/gpu-physics/releases/tag/v0.1.6
 [0.1.7]: https://github.com/Plasius-LTD/gpu-physics/releases/tag/v0.1.7
 [0.1.8]: https://github.com/Plasius-LTD/gpu-physics/releases/tag/v0.1.8
+[0.1.9]: https://github.com/Plasius-LTD/gpu-physics/releases/tag/v0.1.9
