@@ -32,6 +32,22 @@ import { PhysicsRoot, StaticRigidBody } from "@plasius/gpu-physics";
 </PhysicsRoot>
 ```
 
+## Demo
+
+`@plasius/gpu-physics` now ships a browser-backed 3D harbor demo instead of only a
+CLI export example. The scene uses GLTF ships with collision metadata, exposes
+the stable `worldSnapshot` handoff, and keeps cloth, fluid, and lighting as
+downstream visual consumers of the resolved physics state.
+
+```bash
+npm run demo
+```
+
+Open `http://localhost:8000/gpu-physics/demo/` after starting the server.
+
+The original CLI export example remains available at
+`demo/example.mjs` when you only need a quick package sanity check.
+
 ## Worker Governance
 
 `@plasius/gpu-physics` now publishes worker-governance manifests so physics

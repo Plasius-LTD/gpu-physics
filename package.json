@@ -32,7 +32,7 @@
     "audit:deps": "npm ls --all --omit=optional --omit=peer > /dev/null 2>&1 || true",
     "audit:npm": "npm audit --audit-level=high --omit=dev",
     "audit:test": "npm run test:coverage",
-    "lint": "eslint . --max-warnings=0",
+    "lint": "eslint . --max-warnings=0 && node --check demo/main.js",
     "test": "npm run test:unit",
     "test:unit": "node --test",
     "test:coverage": "c8 --reporter=lcov --reporter=text node --test",

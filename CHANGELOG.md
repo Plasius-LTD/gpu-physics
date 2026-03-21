@@ -14,10 +14,14 @@
   - Simulation plan helpers that describe authoritative commit, optional
     secondary simulation, and snapshot routing before visual follow-up work.
   - ADR, TDR, design docs, and tests for the stable world snapshot architecture.
+  - A browser-backed 3D physics demo that mounts the shared harbor showcase in
+    a physics-focused validation mode.
 
 - **Changed**
   - Physics worker manifests now route visual follow-up work through explicit
     `authoritativeCommit`, `animationStateInputs`, and `worldSnapshot` stages.
+  - Package docs now direct users to the browser demo first, while retaining the
+    CLI example for quick export checks.
 
 - **Fixed**
   - (placeholder)
