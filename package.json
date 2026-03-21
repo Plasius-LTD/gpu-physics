@@ -56,6 +56,9 @@
   "peerDependencies": {
     "react": "^19.1.0"
   },
+  "dependencies": {
+    "@plasius/gpu-shared": "https://registry.npmjs.org/@plasius/gpu-shared/-/gpu-shared-0.1.0.tgz"
+  },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
     "c8": "^10.1.3",
