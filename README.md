@@ -39,6 +39,17 @@ CLI export example. The scene uses GLTF ships with collision metadata, exposes
 the stable `worldSnapshot` handoff, and keeps cloth, fluid, and lighting as
 downstream visual consumers of the resolved physics state.
 
+The shared harbor runtime is now sourced from `@plasius/gpu-shared`, and the
+browser-safe physics planning surface is also available as a dedicated subpath:
+
+```js
+import {
+  createPhysicsSimulationPlan,
+  createPhysicsWorldSnapshot,
+  getPhysicsWorkerManifest,
+} from "@plasius/gpu-physics/browser";
+```
+
 ```bash
 npm run demo
 ```
@@ -129,6 +140,7 @@ console.log(snapshot.stability);
 - `physicsSimulationStageOrder`
 - `createPhysicsSimulationPlan(profile?)`
 - `createPhysicsWorldSnapshot(input)`
+- `@plasius/gpu-physics/browser`
 
 ## Worker Profiles
 

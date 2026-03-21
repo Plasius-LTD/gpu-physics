@@ -1,4 +1,4 @@
-import { mountGpuShowcase } from "../../gpu-demo-viewer/shared/showcase-runtime.js";
+import { mountGpuShowcase } from "../../gpu-shared/dist/index.js";
 
 const root = globalThis.document?.getElementById("app");
 if (!root) {

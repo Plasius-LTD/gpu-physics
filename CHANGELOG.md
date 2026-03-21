@@ -11,6 +11,8 @@
 - **Added**
   - Stable world snapshot exports with a normalized simulation-to-visual handoff
     contract.
+  - A browser-safe `@plasius/gpu-physics/browser` entrypoint for planning,
+    manifest, and snapshot helpers without React imports.
   - Simulation plan helpers that describe authoritative commit, optional
     secondary simulation, and snapshot routing before visual follow-up work.
   - ADR, TDR, design docs, and tests for the stable world snapshot architecture.
@@ -20,6 +22,8 @@
 - **Changed**
   - Physics worker manifests now route visual follow-up work through explicit
     `authoritativeCommit`, `animationStateInputs`, and `worldSnapshot` stages.
+  - The browser demo now consumes `@plasius/gpu-shared` as the shared harbor
+    runtime instead of importing private viewer files.
   - Package docs now direct users to the browser demo first, while retaining the
     CLI example for quick export checks.
 
