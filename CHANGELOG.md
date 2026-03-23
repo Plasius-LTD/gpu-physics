@@ -20,6 +20,20 @@
 - **Security**
   - (placeholder)
 
+## [0.1.10] - 2026-03-23
+
+- **Added**
+  - (placeholder)
+
+- **Changed**
+  - (placeholder)
+
+- **Fixed**
+  - (placeholder)
+
+- **Security**
+  - (placeholder)
+
 ## [0.1.9] - 2026-03-21
 
 - **Added**
@@ -149,3 +163,4 @@
 [0.1.7]: https://github.com/Plasius-LTD/gpu-physics/releases/tag/v0.1.7
 [0.1.8]: https://github.com/Plasius-LTD/gpu-physics/releases/tag/v0.1.8
 [0.1.9]: https://github.com/Plasius-LTD/gpu-physics/releases/tag/v0.1.9
+[0.1.10]: https://github.com/Plasius-LTD/gpu-physics/releases/tag/v0.1.10
