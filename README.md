@@ -59,6 +59,10 @@ Open `http://localhost:8000/gpu-physics/demo/` after starting the server.
 The original CLI export example remains available at
 `demo/example.mjs` when you only need a quick package sanity check.
 
+For static browser demos, prefer the dedicated `@plasius/gpu-physics/browser`
+subpath for planning, manifest, and snapshot helpers so consumers avoid any
+React-bound surface while still using the published package contract.
+
 ## Worker Governance
 
 `@plasius/gpu-physics` now publishes worker-governance manifests so physics

@@ -9,10 +9,13 @@
 ## [Unreleased]
 
 - **Added**
-  - (placeholder)
+  - Contract tests that lock the published `@plasius/gpu-physics/browser`
+    subpath and verify the browser-safe planning surface remains React-free.
 
 - **Changed**
-  - (placeholder)
+  - Clarified README guidance so static browser consumers prefer the published
+    `@plasius/gpu-physics/browser` entrypoint for planning, manifest, and
+    snapshot helpers.
 
 - **Fixed**
   - (placeholder)
