@@ -39,8 +39,9 @@ CLI export example. The scene uses GLTF ships with collision metadata, exposes
 the stable `worldSnapshot` handoff, and keeps cloth, fluid, and lighting as
 downstream visual consumers of the resolved physics state.
 
-The shared harbor runtime is now sourced from `@plasius/gpu-shared`, and the
-browser-safe physics planning surface is also available as a dedicated subpath:
+The shared harbor runtime is now sourced from the public
+`@plasius/gpu-shared` package surface, and the browser-safe physics planning surface
+is also available as a dedicated subpath:
 
 ```js
 import {

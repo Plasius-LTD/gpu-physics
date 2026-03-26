@@ -14,11 +14,16 @@
   - Contract tests that lock the published `@plasius/gpu-physics/browser`
     subpath, verify the browser-safe planning surface remains React-free, and
     keep the simulation-plan export aligned with helper output.
+  - Browser-demo contract coverage that locks the public
+    `@plasius/gpu-shared` package surface for the 3D physics showcase.
 
 - **Changed**
   - Clarified README guidance so static browser consumers prefer the published
-    `@plasius/gpu-physics/browser` entrypoint for planning, manifest, snapshot,
+  `@plasius/gpu-physics/browser` entrypoint for planning, manifest, snapshot,
     and scene-preparation contract helpers.
+  - Browser demo imports now route through the public
+    `@plasius/gpu-shared` package surface via an import map instead of a deep
+    `node_modules` dist path.
 
 - **Fixed**
   - (placeholder)

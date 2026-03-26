@@ -1,5 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
 
 import {
   createPhysicsSimulationPlan,
@@ -20,6 +22,25 @@ test("browser entry exposes gameplay physics planning without React", () => {
   assert.deepEqual(
     physicsSimulationPlans.gameplay.stages.map((stage) => stage.id),
     plan.stageOrder
+  );
+});
+
+test("browser demo uses the public gpu-shared package surface", () => {
+  const demoSource = fs.readFileSync(
+    path.resolve(process.cwd(), "demo", "main.js"),
+    "utf8"
+  );
+  const demoHtml = fs.readFileSync(
+    path.resolve(process.cwd(), "demo", "index.html"),
+    "utf8"
+  );
+
+  assert.match(demoSource, /from "@plasius\/gpu-shared"/);
+  assert.doesNotMatch(demoSource, /node_modules\/@plasius\/gpu-shared\/dist/);
+  assert.match(demoHtml, /<script type="importmap">/);
+  assert.match(
+    demoHtml,
+    /"@plasius\/gpu-shared": "\.\.\/node_modules\/@plasius\/gpu-shared\/dist\/index\.js"/
   );
 });
 
