@@ -111,9 +111,11 @@ instead of reading raw in-flight solve state.
 import {
   createPhysicsSimulationPlan,
   createPhysicsWorldSnapshot,
+  physicsSimulationPlans,
 } from "@plasius/gpu-physics";
 
 const plan = createPhysicsSimulationPlan("cinematic");
+const cinematicContract = physicsSimulationPlans.cinematic;
 const snapshot = createPhysicsWorldSnapshot({
   frameId: "frame-240",
   tick: 240,
@@ -126,7 +128,12 @@ const snapshot = createPhysicsWorldSnapshot({
 
 console.log(plan.snapshotStageId);
 console.log(snapshot.stability);
+console.log(cinematicContract.secondarySimulationStageIds);
 ```
+
+`physicsSimulationPlans` exposes the docs-first per-profile scene-preparation
+ordering contract directly, while `createPhysicsSimulationPlan(...)` returns the
+same normalized shape for a selected profile at runtime.
 
 ## Exports
 
@@ -142,6 +149,7 @@ console.log(snapshot.stability);
 - `physicsWorkerProfileNames`
 - `getPhysicsWorkerManifest(profile?)`
 - `physicsSimulationStageOrder`
+- `physicsSimulationPlans`
 - `createPhysicsSimulationPlan(profile?)`
 - `createPhysicsWorldSnapshot(input)`
 - `@plasius/gpu-physics/browser`

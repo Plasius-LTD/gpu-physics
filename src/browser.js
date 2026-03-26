@@ -840,7 +840,7 @@ const physicsWorkerDagSpecs = {
   },
 };
 
-const physicsSimulationPlanSpecs = Object.freeze({
+export const physicsSimulationPlans = Object.freeze({
   gameplay: Object.freeze({
     description:
       "Gameplay simulation plan that hands off a stable post-commit world snapshot to visual preparation.",
@@ -1129,7 +1129,7 @@ export function getPhysicsWorkerManifest(
 export function createPhysicsSimulationPlan(
   profile = defaultPhysicsWorkerProfile
 ) {
-  const plan = physicsSimulationPlanSpecs[profile];
+  const plan = physicsSimulationPlans[profile];
   if (!plan) {
     const available = physicsWorkerProfileNames.join(", ");
     throw new Error(

@@ -12,6 +12,7 @@ import {
   StaticRigidBody,
   defaultPhysicsWorkerProfile,
   physicsDebugOwner,
+  physicsSimulationPlans,
   physicsSimulationStageOrder,
   physicsWorkerManifests,
   physicsWorkerProfileNames,
@@ -281,6 +282,25 @@ test("physics simulation plans describe the stable snapshot handoff", () => {
     "clothAssist",
     "fracturePreview",
   ]);
+});
+
+test("public physics simulation plan export stays aligned with helper output", () => {
+  assert.deepEqual(Object.keys(physicsSimulationPlans), physicsWorkerProfileNames);
+
+  for (const profile of physicsWorkerProfileNames) {
+    const exportedPlan = physicsSimulationPlans[profile];
+    const helperPlan = createPhysicsSimulationPlan(profile);
+
+    assert.equal(helperPlan.profile, profile);
+    assert.equal(helperPlan.description, exportedPlan.description);
+    assert.equal(helperPlan.snapshotStageId, exportedPlan.snapshotStageId);
+    assert.deepEqual(
+      helperPlan.secondarySimulationStageIds,
+      exportedPlan.secondarySimulationStageIds
+    );
+    assert.deepEqual(helperPlan.stageOrder, exportedPlan.stages.map((stage) => stage.id));
+    assert.deepEqual(helperPlan.stages, exportedPlan.stages);
+  }
 });
 
 test("physics world snapshots normalize stable handoff metadata", () => {

@@ -9,13 +9,16 @@
 ## [Unreleased]
 
 - **Added**
+  - Exported `physicsSimulationPlans` so downstream packages can consume the
+    per-profile scene-preparation ordering contract directly.
   - Contract tests that lock the published `@plasius/gpu-physics/browser`
-    subpath and verify the browser-safe planning surface remains React-free.
+    subpath, verify the browser-safe planning surface remains React-free, and
+    keep the simulation-plan export aligned with helper output.
 
 - **Changed**
   - Clarified README guidance so static browser consumers prefer the published
-    `@plasius/gpu-physics/browser` entrypoint for planning, manifest, and
-    snapshot helpers.
+    `@plasius/gpu-physics/browser` entrypoint for planning, manifest, snapshot,
+    and scene-preparation contract helpers.
 
 - **Fixed**
   - (placeholder)

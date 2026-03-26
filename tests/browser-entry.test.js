@@ -6,6 +6,7 @@ import {
   createPhysicsWorldSnapshot,
   defaultPhysicsWorkerProfile,
   getPhysicsWorkerManifest,
+  physicsSimulationPlans,
 } from "../src/browser.js";
 
 test("browser entry exposes gameplay physics planning without React", () => {
@@ -16,6 +17,10 @@ test("browser entry exposes gameplay physics planning without React", () => {
   assert.equal(plan.snapshotStageId, "worldSnapshot");
   assert.equal(manifest.profile, "gameplay");
   assert.equal(manifest.jobs.length > 0, true);
+  assert.deepEqual(
+    physicsSimulationPlans.gameplay.stages.map((stage) => stage.id),
+    plan.stageOrder
+  );
 });
 
 test("browser entry creates stable world snapshots", () => {
