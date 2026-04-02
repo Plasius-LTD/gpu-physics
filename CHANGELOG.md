@@ -9,6 +9,20 @@
 ## [Unreleased]
 
 - **Added**
+  - (placeholder)
+
+- **Changed**
+  - (placeholder)
+
+- **Fixed**
+  - (placeholder)
+
+- **Security**
+  - (placeholder)
+
+## [0.1.11] - 2026-04-02
+
+- **Added**
   - Exported `physicsSimulationPlans` so downstream packages can consume the
     per-profile scene-preparation ordering contract directly.
   - Contract tests that lock the published `@plasius/gpu-physics/browser`
@@ -175,3 +189,4 @@
 [0.1.8]: https://github.com/Plasius-LTD/gpu-physics/releases/tag/v0.1.8
 [0.1.9]: https://github.com/Plasius-LTD/gpu-physics/releases/tag/v0.1.9
 [0.1.10]: https://github.com/Plasius-LTD/gpu-physics/releases/tag/v0.1.10
+[0.1.11]: https://github.com/Plasius-LTD/gpu-physics/releases/tag/v0.1.11
