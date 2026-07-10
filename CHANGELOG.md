@@ -9,16 +9,20 @@
 ## [Unreleased]
 
 - **Added**
-  - (placeholder)
+  - Compatibility coverage continues to verify the browser demo uses the
+    public `@plasius/gpu-shared` package surface.
 
 - **Changed**
-  - (placeholder)
+  - Updated `@plasius/gpu-shared` to the stable 1.x line (`^1.0.12`).
+  - Refreshed ESLint, globals, React, and TypeScript development baselines;
+    TypeScript 7 is now the package development baseline.
 
 - **Fixed**
-  - (placeholder)
+  - Regenerated `package-lock.json` from the refreshed manifests and documented
+    the Node.js 24/runtime compatibility baseline.
 
 - **Security**
-  - (placeholder)
+  - Runtime dependency audit remains clear of high-severity vulnerabilities.
 
 ## [0.1.17] - 2026-06-22
 

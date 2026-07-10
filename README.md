@@ -10,6 +10,10 @@
 
 Framework-ready physics bridge package for Plasius GPU migration paths.
 
+The package targets Node.js 24 and currently consumes the stable
+`@plasius/gpu-shared` 1.x runtime line (`^1.0.12`). Development tooling is
+validated against TypeScript 7 and the current ESLint 10 release.
+
 ## Why
 
 `@plasius/gpu-physics` provides a stable physics API surface while renderer code migrates away from direct legacy integration points. It is framework-neutral and keeps call sites isolated from any specific scene runtime.
