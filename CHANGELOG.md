@@ -9,6 +9,20 @@
 ## [Unreleased]
 
 - **Added**
+  - (placeholder)
+
+- **Changed**
+  - (placeholder)
+
+- **Fixed**
+  - (placeholder)
+
+- **Security**
+  - (placeholder)
+
+## [0.1.18] - 2026-07-10
+
+- **Added**
   - Compatibility coverage continues to verify the browser demo uses the
     public `@plasius/gpu-shared` package surface.
 
@@ -254,3 +268,4 @@
 [0.1.13]: https://github.com/Plasius-LTD/gpu-physics/releases/tag/v0.1.13
 [0.1.16]: https://github.com/Plasius-LTD/gpu-physics/releases/tag/v0.1.16
 [0.1.17]: https://github.com/Plasius-LTD/gpu-physics/releases/tag/v0.1.17
+[0.1.18]: https://github.com/Plasius-LTD/gpu-physics/releases/tag/v0.1.18
