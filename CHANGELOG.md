@@ -12,7 +12,8 @@
   - (placeholder)
 
 - **Changed**
-  - Bound npm publication to the exact prepared `main` commit after successful push-triggered CI.
+  - Refreshed compatible @plasius/* lockfile resolutions to the latest published releases.
+ - Bound npm publication to the exact prepared `main` commit after successful push-triggered CI.
   - (placeholder)
 
 - **Fixed**
