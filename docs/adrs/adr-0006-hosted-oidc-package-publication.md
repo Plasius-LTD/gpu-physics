@@ -1,6 +1,6 @@
 # ADR-0006: Hosted OIDC Package Publication
 
-- Status: Accepted
+- Status: Accepted; CI scheduling superseded by [ADR-0007](adr-0007-trusted-push-self-hosted-ci.md)
 - Date: 2026-08-11
 
 ## Context
