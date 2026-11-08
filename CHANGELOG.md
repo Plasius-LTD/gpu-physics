@@ -9,7 +9,7 @@
 ## [Unreleased]
 
 - **Added**
-  - (placeholder)
+  - Portable sphere/AABB intersection and continuous swept queries, bounded deterministic kinematic steps, and a React-free collision entry for browser/server game hosts.
 
 - **Changed**
   - Refreshed compatible @plasius/* lockfile resolutions to the latest published releases.
@@ -25,6 +25,7 @@
   - (placeholder)
 
 - **Security**
+  - Pin patched development glob, minimatch and brace-expansion resolutions; validate finite collision inputs, bounded paths and integrated state.
   - Removed the npm write-token path, added a fail-closed npm 11.5.1-or-newer OIDC guard, and denied fork PR code access to reviewed CI.
   - Pinned patched transitive npm dependencies to clear the current audit baseline.
   - Moved reviewed CI to explicit GitHub-hosted runners while retaining the same-repository pull-request guard.

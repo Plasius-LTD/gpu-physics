@@ -1,3 +1,4 @@
+export * from "./collision.js";
 export const physicsDebugOwner = "physics";
 export const physicsWorkerQueueClasses = Object.freeze({
   simulation: "simulation",

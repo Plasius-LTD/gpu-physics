@@ -10,6 +10,47 @@
 
 Framework-ready physics bridge package for Plasius GPU migration paths.
 
+## Portable collision queries
+
+Use `@plasius/gpu-physics/collision` for pure CPU geometry in Node or a browser,
+without importing React or a renderer. The same exports are available from the
+root and browser entries. ESM and CommonJS are supported.
+
+```js
+import { sweepSphereAabb, integrateKinematic } from '@plasius/gpu-physics/collision';
+
+const contact = sweepSphereAabb(
+  { center: [-10, 0, 0], radius: 1 },
+  [20, 0, 0],
+  { min: [-1, -1, -1], max: [1, 1, 1] },
+);
+// contact.time === 0.4; contact.position is [-2, 0, 0].
+const next = integrateKinematic(
+  { position: [0, 0, 0], velocity: [2, 0, 0] },
+  [0, -9.81, 0],
+  1 / 60,
+);
+```
+
+`intersectSpheres`, `intersectSphereAabb` and `intersectAabbs` return a contact
+or `null`. `sweepSphere`, `sweepSphereAabb` and `sweepAabb` return the first
+contact over a displacement against a stationary target: `time` in [0,1],
+moving-centre `position`, stationary-surface `point`, outward `normal`,
+`penetration` and `startsInContact`. Touching includes endpoints and time zero.
+Normals point from the target toward the moving shape. Interior box ties select
+X/Y/Z in order, lower face first; coincident spheres select positive X.
+
+`collisionLimits` documents finite input bounds and the 1e-8 contact tolerance.
+Coordinates, displacement and radii are at most 1,000,000 units in magnitude;
+radii are nonnegative and box minima must not exceed maxima. Path endpoints must
+stay in coordinate bounds. Velocity is at most 100,000 units/s, acceleration
+1,000,000 units/s² and integration steps 0–0.25 seconds. Invalid input or an
+out-of-bounds integrated state throws. Inputs are not mutated. Hosts choose a
+fixed step and own contact response, world scheduling and authority.
+
+See [collision design](docs/design/arcade-collisions.md) and
+[ADR-0008](docs/adrs/adr-0008-portable-spatial-collision-queries.md).
+
 The package targets Node.js 24 and currently consumes the stable
 `@plasius/gpu-shared` 1.x runtime line (`^1.0.12`). Development tooling is
 validated against TypeScript 7 and the current ESLint 10 release.
