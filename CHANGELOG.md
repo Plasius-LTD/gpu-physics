@@ -9,6 +9,20 @@
 ## [Unreleased]
 
 - **Added**
+  - (placeholder)
+
+- **Changed**
+  - (placeholder)
+
+- **Fixed**
+  - (placeholder)
+
+- **Security**
+  - (placeholder)
+
+## [0.1.19] - 2026-11-15
+
+- **Added**
   - Portable sphere/AABB intersection and continuous swept queries, bounded deterministic kinematic steps, and a React-free collision entry for browser/server game hosts.
 
 - **Changed**
@@ -281,3 +295,4 @@
 [0.1.16]: https://github.com/Plasius-LTD/gpu-physics/releases/tag/v0.1.16
 [0.1.17]: https://github.com/Plasius-LTD/gpu-physics/releases/tag/v0.1.17
 [0.1.18]: https://github.com/Plasius-LTD/gpu-physics/releases/tag/v0.1.18
+[0.1.19]: https://github.com/Plasius-LTD/gpu-physics/releases/tag/v0.1.19
