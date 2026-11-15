@@ -17,6 +17,10 @@
   - (placeholder)
 
 - **Fixed**
+  - Restored trusted branch CI to approved self-hosted Linux/X64 capacity, with
+    explicit event/repository/ref guards and regression coverage denying PRs,
+    forks and tags; documented bounded, credential-free runner execution.
+  - Updated the audit-blocking brace-expansion override from 5.0.9 to 5.0.12.
   - Added exact-commit CI dispatch and disabled package-manager cache finalization in both hosted validation jobs.
   - (placeholder)
 

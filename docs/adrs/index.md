@@ -6,3 +6,4 @@
 - [ADR-0004: Authoritative Worker Budget Manifests](./adr-0004-authoritative-worker-budget-manifests.md)
 - [ADR-0005: Stable World Snapshot Contract](./adr-0005-stable-world-snapshot-contract.md)
 - [ADR-0006: Hosted OIDC Package Publication](./adr-0006-hosted-oidc-package-publication.md)
+- [ADR-0007: Trusted Push Self-Hosted CI](./adr-0007-trusted-push-self-hosted-ci.md)

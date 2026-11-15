@@ -193,9 +193,18 @@ Apache-2.0
 ## Release integrity
 
 CI keeps the administrative contributor registry outside Git and npm package
-artifacts using exact, case-normalised path checks. CI runs on approved
-GitHub-hosted runners for same-repository pull requests and `main`, with
-package-manager cache finalization disabled; fork PR code is denied.
+artifacts using exact, case-normalised path checks. CI runs trusted repository
+branch pushes (including `main`) and manual branch
+validation on `Public CI - Quarantined` with literal `[self-hosted, Linux, X64]`
+labels. Both jobs reject pull requests, fork repositories and tags; there is no
+caller-controlled runner selector. Package-manager caching and checkout credential
+persistence are disabled. Per-ref concurrency and bounded job timeouts constrain
+runner use. A feature branch must have an approved immutable-source admission in
+the runner group before it can execute; never widen the group or use hosted CI
+as a fallback. See [ADR-0007](docs/adrs/adr-0007-trusted-push-self-hosted-ci.md).
+Mandatory coverage and artifact admission do not depend on the remote
+`platform.public-artifact-integrity.enabled` distribution flag. Disabling that
+flag stops staged distribution, not integrity validation.
 Publication uses the GitHub-hosted `production` job with Node 24 and a pinned
 npm 11.6.2 client. It is token-free and proceeds only while the prepared SHA
 is the exact `main` head after successful push-triggered CI. Do not dispatch CD
