@@ -8,6 +8,8 @@
 
 ## [Unreleased]
 
+- Refresh compatible npm dependencies and published Plasius dependency resolutions for the weekly security maintenance batch (2026-09-27).
+
 - **Added**
   - Portable sphere/AABB intersection and continuous swept queries, bounded deterministic kinematic steps, and a React-free collision entry for browser/server game hosts.
 
