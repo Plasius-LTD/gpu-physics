@@ -156,3 +156,4 @@ export function createPhysicsWorldSnapshot(input: {
   contactCount?: number;
   metadata?: Readonly<Record<string, unknown>>;
 }): PhysicsWorldSnapshot;
+export * from "./collision.js";
