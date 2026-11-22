@@ -63,16 +63,16 @@
     "react": "^19"
   },
   "dependencies": {
-    "@plasius/gpu-shared": "^1.1.1"
+    "@plasius/gpu-shared": "^1.11.2"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/react": "^19.3.0",
-    "c8": "^11.0.0",
-    "eslint": "^10.9.1",
-    "globals": "^17.11.0",
-    "react": "^19.2.8",
-    "tsup": "^8.5.1",
+    "c8": "^12.0.0",
+    "eslint": "^10.15.0",
+    "globals": "^17.14.0",
+    "react": "^19.3.1",
+    "tsup": "^9.0.0",
     "typescript": "^7.0.2"
   },
   "repository": {
@@ -99,7 +99,7 @@
   "overrides": {
     "brace-expansion": "5.0.12",
     "esbuild": "^0.28.1",
-    "minimatch": "11.0.5",
+    "minimatch": "^11.0.9",
     "glob": "14.0.4"
   },
   "engines": {
